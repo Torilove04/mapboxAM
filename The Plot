@@ -1,0 +1,9 @@
+import plotly.express as px
+
+df = px.data.election()
+geojson = px.data.election_geojson()
+
+print(df["district"][2])
+print(geojson["features"][0]["properties"])
+
+# you will have to install plotly express interpreter #
