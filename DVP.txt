@@ -1,0 +1,53 @@
+import csv
+from datetime import datetime
+import matplotlib.pyplot as plt
+import numpy as np
+
+filename = 'Eminence IN Data.csv'
+with open(filename) as f:
+    reader = csv.reader(f)
+    header_row = next(reader)
+
+    dates, highs, lows, humidity, direction, avg_wind, prcp, weather = [], [], [], [], [], [], [], []
+    for row in header_row:
+        current_date = datetime.strptime(row[0], '%m-%d-%Y')
+        try:
+            high = (row[1])
+            low = (row[2])
+            humid = (row[3])
+            wind_speed = (row[4])
+            direct = (row[5])
+            PRCP = (row[6])
+            weathering = (row[7])
+        except ValueError:
+            print(f"Missing data for {current_date}")
+        else:
+            dates.append(current_date)
+            highs.append(high)
+            lows.append(low)
+            humid.append(humidity)
+            wind_speed.append(avg_wind)
+            direct.append(direction)
+            PRCP.append(prcp)
+            weathering.append(weather)
+
+
+fig, ax = plt.subplots()
+x = len(weathering)
+patches, texts, pcts = ax.pie(x, labels=weathering, autopct='%.1f%%',
+                              wedgeprops={'linewidth': 3.0, 'edgecolor': 'white'},
+                              textprops={'size': 'x-large'},
+                              startangle=90)
+for i, patch in enumerate(patches):
+    texts[i].set_color(patch.get_facecolor())
+plt.setp(pcts, color='white')
+plt.setp(texts, fontweight=600)
+ax.set_title('Common Weather', fontsize=18)
+plt.tight_layout()
+
+fig, ax = plt.subplots()
+ax.set_title("Eminence IN, Weather Data\n2011-2021", fontsize=19)
+ax.set_xlabel('Date', fontsize=16)
+ax.set_ylabel("Temperature (F)", fontsize=16)
+
+plt.show()
