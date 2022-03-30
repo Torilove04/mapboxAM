@@ -1,16 +1,14 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-
 category_names = ['High temp', 'Humidity', 'Wind Speed', 'Precipitation', 'Low Temp']
 results = {
-    'July 21': [84, 15, 0, 32, 26],
-    'July 22': [26, 22, 0, 10, 13],
-    'July 23': [35, 37, 0, 2, 19],
-    'July 24': [32, 11, 0, 15, 33],
-    'July 25': [21, 29, 0, 5, 40],
+    'July 21': [84, 74, 7, 0, 67],
+    'July 22': [83, 68, 6, 0, 75],
+    'July 23': [83, 64, 7, 0, 75],
+    'July 24': [82, 62, 7, 0, 73],
+    'July 25': [84, 61, 6, 0, 74],
 }
-
 
 def survey(results, category_names):
     labels = list(results.keys())
@@ -31,13 +29,21 @@ def survey(results, category_names):
                         label=colname, color=color)
 
         r, g, b, _ = color
-        text_color = 'white' if r * g * b < 0.5 else 'darkgrey'
+        text_color = 'black' if r * g * b < 0.5 else 'darkgrey'
         ax.bar_label(rects, label_type='center', color=text_color)
     ax.legend(ncol=len(category_names), bbox_to_anchor=(0, 1),
               loc='lower left', fontsize='small')
-
     return fig, ax
 
 
 survey(results, category_names)
+plt.show()
+
+fig = plt.figure()
+ax = fig.add_axes([0, 0, 1, 1])
+ax.axis('equal')
+weather = ['Overcast', 'Partly Sunny', 'Passing Clouds', 'Scattered Clouds', 'Light Rain', 'Thunder Shower', 'Sunny']
+amount = [5, 25, 5, 15, 2, 1, 2]
+ax.pie(amount, labels=weather, autopct='%1.2f%%')
+
 plt.show()
